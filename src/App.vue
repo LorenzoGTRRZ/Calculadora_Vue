@@ -1,47 +1,71 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+  data() {
+    return {
+      numero1: 0,
+      numero2: 0,
+      operacao: '+',
+      resultado: 0
+    }
+  },
+  watch: {
+    operacao() {
+      this.calculate();
+    },
+    numero2() {
+      this.calculate();
+    },
+    operacao() {
+      this.calculate();
+    }
+  },
+  methods: {
+    calculate() {
+      switch(this.operacao) {
+        case '+':
+          this.resultado = parseFloat(this.numero1) + parseFloat(this.numero2);
+          break;
+        case '-':
+          this.resultado = parseFloat(this.numero1) - parseFloat(this.numero2);
+          break;
+        case '*':
+          this.resultado = parseFloat(this.numero1) * parseFloat(this.numero2);
+          break;
+        case '/':
+          this.resultado = parseFloat(this.numero1) / parseFloat(this.numero2);
+          break;
+      }
+    }
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="container mt-5 bg-light">
+    <div class="row">
+      <div class="col">
+        <input type="number" class="form-control" v-model.number="numero1">
+      </div>
+      <div class="col">
+        <select class="form-control" v-model="operacao">
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+        </select>
+      </div>
+      <div class="col ">
+        <input type="number" class="form-control" v-model.number="numero2">
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <div class="row mt-3">
+      <div class="col ">
+        <h4>Resultado: {{ resultado }}</h4>
+      </div>
+    </div>
+  </div>
 </template>
 
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
